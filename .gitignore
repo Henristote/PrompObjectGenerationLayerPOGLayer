@@ -110,3 +110,6 @@ InitTestScene*.unity*
 /[Aa]ssets/Samples/
 /[Aa]ssets/TextMesh Pro/
 /[Aa]ssets/_Recovery/
+
+#POGLayer_BackUpThisFolder_ButDontShipItWithYourGame
+/POGLayer_BackUpThisFolder_ButDontShipItWithYourGame/
