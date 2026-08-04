@@ -22,9 +22,9 @@ public class VoiceCatcher : MonoBehaviour
 
     void Start()
     {
-        generateModel.LAYER_TOKEN = LAYER_TOKEN;
-        generateModel.WORKSPACE_ID = WORKSPACE_ID;
-        generateModel.modelId = modelId;
+        //generateModel.LAYER_TOKEN = LAYER_TOKEN;
+        //generateModel.WORKSPACE_ID = WORKSPACE_ID;
+        //generateModel.modelId = modelId;
         logPath = Path.Combine(Application.persistentDataPath, "voice_logs.txt");
 
         // Événement pour le texte qui s'affiche au fur et à mesure

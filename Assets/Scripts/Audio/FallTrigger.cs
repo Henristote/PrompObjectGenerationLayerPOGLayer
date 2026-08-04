@@ -14,9 +14,11 @@ public class FallTrigger : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("!!! IMPACT !!!");
         // On déclenche le clip uniquement si la force du choc dépasse notre seuil
-        if (collision.relativeVelocity.magnitude > seuilImpact)
+        if (collision.relativeVelocity.magnitude > seuilImpact && !collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("SOUND TRIGGER");
             audioSource.PlayOneShot(audioSource.clip);
         }
     }
