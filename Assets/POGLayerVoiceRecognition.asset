@@ -19,11 +19,14 @@ MonoBehaviour:
     lang: en
     isPrivate: 1
     createdAt: 2026-07-12T21:00:12-0700
-    trainingStatus: 1
-    lastTrainDuration: 0
-    lastTrainedAt: 1969-12-31T16:00:00-0800
-    nextTrainAt: 1969-12-31T16:00:00-0800
-    intents: []
+    trainingStatus: 3
+    lastTrainDuration: 125
+    lastTrainedAt: 2026-07-14T04:37:15-0700
+    nextTrainAt: 2026-07-16T20:45:49-0700
+    intents:
+    - id: 1732278751129033
+      name: Voice_Catcher
+      entities: []
     entities: []
     traits: []
     versionTags: []
@@ -534,7 +537,7 @@ MonoBehaviour:
       - phoneme_events
       - word_events
   _configData: []
-  _configurationId: 
+  _configurationId: b070cc95-0516-41c2-9ee7-ec4defe10415
   timeoutMS: 10000
   endpointConfiguration:
     _uriScheme: 
@@ -554,4 +557,4 @@ MonoBehaviour:
   - Oculus.Voice.Demo, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Meta.WitAi.Samples, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   relaxedResolution: 0
-  _lastRefreshSeconds: 1783916523.4962108
+  _lastRefreshSeconds: 1785488170.660755

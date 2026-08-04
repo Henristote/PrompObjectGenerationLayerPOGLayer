@@ -4,6 +4,7 @@ using Meta.WitAi.Dictation; // Namespace pour DictationExperience
 using System.IO;
 using System.Collections;
 
+
 public class VoiceCatcher : MonoBehaviour
 {
     [SerializeField] private DictationService dictationExperience;
@@ -12,8 +13,18 @@ public class VoiceCatcher : MonoBehaviour
     private string logPath;
     private Coroutine clearTextCoroutine;
 
+    public GenerateModel generateModel; // Référence à votre script GenerateModel
+
+    [SerializeField] private string LAYER_TOKEN = "your-pat-token";
+    [SerializeField] private string WORKSPACE_ID = "your-workspace-id";
+    private string modelId = "TON_MODEL_ID";
+
+
     void Start()
     {
+        generateModel.LAYER_TOKEN = LAYER_TOKEN;
+        generateModel.WORKSPACE_ID = WORKSPACE_ID;
+        generateModel.modelId = modelId;
         logPath = Path.Combine(Application.persistentDataPath, "voice_logs.txt");
 
         // Événement pour le texte qui s'affiche au fur et à mesure
@@ -33,7 +44,18 @@ public class VoiceCatcher : MonoBehaviour
             dictationExperience.Activate();
         }
 
-        if(OVRInput.GetUp(OVRInput.Button.One)) // Vérifie si le bouton A est pressé
+        if(OVRInput.GetUp(OVRInput.Button.One)) // Vérifie si le bouton A est relâché
+        {
+            dictationExperience.Deactivate();
+        }
+
+        if(OVRInput.GetDown(OVRInput.Button.Two)) // Vérifie si le bouton B est pressé
+        {
+            //if (clearTextCoroutine != null) StopCoroutine(clearTextCoroutine)
+                //GenerateModel.Instantiate();
+        }
+
+        if(OVRInput.GetUp(OVRInput.Button.Two)) // Vérifie si le bouton B est relâché
         {
             dictationExperience.Deactivate();
         }
