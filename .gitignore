@@ -80,6 +80,7 @@ mono_crash.*
 *.unitypackage
 *.unitypackage.meta
 *.app
+*.meta
 
 # Crashlytics generated file
 crashlytics-build.properties
@@ -107,9 +108,10 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
 #useless packages
+/[Aa]ssets/Oculus/Voice/Resources/
+/[Aa]ssets/_Recovery/
 /[Aa]ssets/Samples/
 /[Aa]ssets/TextMesh Pro/
-/[Aa]ssets/_Recovery/
 /[Aa]ssets/XR/APILayers~/WindowsLayers/
 
 #POGLayer_BackUpThisFolder_ButDontShipItWithYourGame
