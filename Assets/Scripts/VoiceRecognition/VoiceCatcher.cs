@@ -3,6 +3,12 @@ using TMPro; // Nécessaire pour manipuler le texte
 using Meta.WitAi.Dictation; // Namespace pour DictationExperience
 using System.IO;
 using System.Collections;
+using Unity.VisualScripting;
+
+
+#if UNITY_ANDROID
+using UnityEngine.Android; // Nécessaire pour forcer la demande de permission
+#endif
 
 
 public class VoiceCatcher : MonoBehaviour
@@ -13,18 +19,25 @@ public class VoiceCatcher : MonoBehaviour
     private string logPath;
     private Coroutine clearTextCoroutine;
 
-    public GenerateModel generateModel; // Référence à votre script GenerateModel
-
-    [SerializeField] private string LAYER_TOKEN = "your-pat-token";
-    [SerializeField] private string WORKSPACE_ID = "your-workspace-id";
-    private string modelId = "TON_MODEL_ID";
+    [SerializeField] private GenerateModel generateModel;
+    [SerializeField] private string LAYER_TOKEN = "pat_4pi2K0SNowsfHOX7YpzwPloRQkeBON7v5xRBXDm4se2p226Alc1DZ5jdPErAPHFRSzaWXvs6ZlrTz67MuoJdGd";
+    [SerializeField] private string WORKSPACE_ID = "9cbfe705-ef1b-4c1f-a42a-933363502f1a";
 
 
     void Start()
     {
-        //generateModel.LAYER_TOKEN = LAYER_TOKEN;
-        //generateModel.WORKSPACE_ID = WORKSPACE_ID;
-        //generateModel.modelId = modelId;
+#if UNITY_ANDROID
+        if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
+        {
+            Permission.RequestUserPermission(Permission.Microphone);
+        }
+#endif
+
+        generateModel.LAYER_TOKEN = LAYER_TOKEN;
+        generateModel.WORKSPACE_ID = WORKSPACE_ID;
+
+        StartCoroutine(generateModel.GetAvailableModelsCoroutine());
+
         logPath = Path.Combine(Application.persistentDataPath, "voice_logs.txt");
 
         // Événement pour le texte qui s'affiche au fur et à mesure
@@ -39,8 +52,6 @@ public class VoiceCatcher : MonoBehaviour
         if(OVRInput.GetDown(OVRInput.Button.One)) // Vérifie si le bouton A est pressé
         {
             if (clearTextCoroutine != null) StopCoroutine(clearTextCoroutine);
-
-
             dictationExperience.Activate();
         }
 
@@ -81,10 +92,15 @@ public class VoiceCatcher : MonoBehaviour
             uiTextDisplay.text = fullText;
             clearTextCoroutine = StartCoroutine(ClearTextAfterDelay(20f));
         }
+
+        if (generateModel != null && !string.IsNullOrEmpty(fullText))
+        {
+            generateModel.StartGeneration(fullText);
+        }
     }
 
     private IEnumerator ClearTextAfterDelay(float delay) {
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(delay);
         if (uiTextDisplay.text != null)
         {
             uiTextDisplay.text = "";

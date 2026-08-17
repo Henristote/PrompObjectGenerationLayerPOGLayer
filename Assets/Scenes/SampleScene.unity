@@ -2261,9 +2261,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VoiceCatcher
   dictationExperience: {fileID: 131554479}
   uiTextDisplay: {fileID: 981904548}
-  generateModel: {fileID: 0}
-  LAYER_TOKEN: your-pat-token
-  WORKSPACE_ID: your-workspace-id
+  generateModel: {fileID: 1567052387}
+  LAYER_TOKEN: pat_4pi2K0SNowsfHOX7YpzwPloRQkeBON7v5xRBXDm4se2p226Alc1DZ5jdPErAPHFRSzaWXvs6ZlrTz67MuoJdGd
+  WORKSPACE_ID: 9cbfe705-ef1b-4c1f-a42a-933363502f1a
 --- !u!4 &276048987
 Transform:
   m_ObjectHideFlags: 0
@@ -2278,6 +2278,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 398151041}
+  - {fileID: 1567052386}
   m_Father: {fileID: 242443393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &300125314
@@ -10344,6 +10345,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2074546242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1567052385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1567052386}
+  - component: {fileID: 1567052387}
+  m_Layer: 6
+  m_Name: GenerateModelScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1567052386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567052385}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 276048987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1567052387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567052385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91bc85521d0f1f4b94d4a01ec8005df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GenerateModel
+  LAYER_TOKEN: pat_4pi2K0SNowsfHOX7YpzwPloRQkeBON7v5xRBXDm4se2p226Alc1DZ5jdPErAPHFRSzaWXvs6ZlrTz67MuoJdGd
+  WORKSPACE_ID: 9cbfe705-ef1b-4c1f-a42a-933363502f1a
 --- !u!1 &1582424741
 GameObject:
   m_ObjectHideFlags: 0
