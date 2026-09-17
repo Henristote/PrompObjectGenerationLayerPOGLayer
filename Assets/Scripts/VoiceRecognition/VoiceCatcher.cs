@@ -3,7 +3,6 @@ using TMPro; // Nécessaire pour manipuler le texte
 using Meta.WitAi.Dictation; // Namespace pour DictationExperience
 using System.IO;
 using System.Collections;
-using Unity.VisualScripting;
 
 
 #if UNITY_ANDROID
@@ -19,9 +18,10 @@ public class VoiceCatcher : MonoBehaviour
     private string logPath;
     private Coroutine clearTextCoroutine;
 
-    [SerializeField] private GenerateModel generateModel;
-    [SerializeField] private string LAYER_TOKEN = "pat_4pi2K0SNowsfHOX7YpzwPloRQkeBON7v5xRBXDm4se2p226Alc1DZ5jdPErAPHFRSzaWXvs6ZlrTz67MuoJdGd";
-    [SerializeField] private string WORKSPACE_ID = "9cbfe705-ef1b-4c1f-a42a-933363502f1a";
+    //[SerializeField] private GenerateModel generateModel;
+    [SerializeField] private GenerateurShapE generateModel;
+    //[SerializeField] private string LAYER_TOKEN = "pat_4pi2K0SNowsfHOX7YpzwPloRQkeBON7v5xRBXDm4se2p226Alc1DZ5jdPErAPHFRSzaWXvs6ZlrTz67MuoJdGd";
+    //[SerializeField] private string WORKSPACE_ID = "9cbfe705-ef1b-4c1f-a42a-933363502f1a";
 
 
     void Start()
@@ -32,11 +32,11 @@ public class VoiceCatcher : MonoBehaviour
             Permission.RequestUserPermission(Permission.Microphone);
         }
 #endif
+        Debug.Log("Voice Catcher initialized. Log path: " + logPath);
+        //generateModel.LAYER_TOKEN = LAYER_TOKEN;
+        //generateModel.WORKSPACE_ID = WORKSPACE_ID;
 
-        generateModel.LAYER_TOKEN = LAYER_TOKEN;
-        generateModel.WORKSPACE_ID = WORKSPACE_ID;
-
-        StartCoroutine(generateModel.GetAvailableModelsCoroutine());
+        //StartCoroutine(generateModel.GetAvailableModelsCoroutine());
 
         logPath = Path.Combine(Application.persistentDataPath, "voice_logs.txt");
 
@@ -53,11 +53,13 @@ public class VoiceCatcher : MonoBehaviour
         {
             if (clearTextCoroutine != null) StopCoroutine(clearTextCoroutine);
             dictationExperience.Activate();
+            Debug.Log("Dictation Activate statut : " + (dictationExperience.Active == true));
         }
 
         if(OVRInput.GetUp(OVRInput.Button.One)) // Vérifie si le bouton A est relâché
         {
             dictationExperience.Deactivate();
+            Debug.Log("Dictation Desactivate statut : " + (dictationExperience.Active == false));
         }
 
         if(OVRInput.GetDown(OVRInput.Button.Two)) // Vérifie si le bouton B est pressé
@@ -81,10 +83,15 @@ public class VoiceCatcher : MonoBehaviour
     private void SaveAndFinalize(string fullText)
     {
         // On sauvegarde le résultat final dans les logs
+        Debug.Log("SaveAndFinalize Start");
         using (StreamWriter sw = File.AppendText(logPath))
         {
+            Debug.Log("Writing to log file: " + logPath);
             sw.WriteLine($"[{System.DateTime.Now}] : {fullText}");
+            Debug.Log("Text saved to log file: " + fullText);
         }
+        Debug.Log("generateModel null ? : " + generateModel != null);
+        Debug.Log("Text loggé ? : " + string.IsNullOrEmpty(fullText) + "text : " + fullText);
 
         // Optionnel : on peut ajouter un feedback visuel ou réinitialiser le texte
         if (uiTextDisplay != null)
@@ -92,9 +99,9 @@ public class VoiceCatcher : MonoBehaviour
             uiTextDisplay.text = fullText;
             clearTextCoroutine = StartCoroutine(ClearTextAfterDelay(20f));
         }
-
         if (generateModel != null && !string.IsNullOrEmpty(fullText))
         {
+            Debug.Log("Starting model generation with prompt: " + fullText);
             generateModel.StartGeneration(fullText);
         }
     }
