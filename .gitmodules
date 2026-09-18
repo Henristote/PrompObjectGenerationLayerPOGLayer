@@ -1,3 +1,4 @@
 [submodule "shap-e_for_POGLayer"]
 	path = shap-e_for_POGLayer
 	url = https://github.com/Henristote/shap-e_for_POGLayer.git
+	branch = main
