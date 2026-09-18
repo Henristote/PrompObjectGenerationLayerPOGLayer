@@ -1,21 +1,21 @@
 # Prompt Object Generation Layer (POGLayer)
 
-Ce projet Unity est une expérience VR permettant la génération de modèles 3D directement via un prompt vocal. Concrètement, l'utilisateur dicte à voix haute l'élément qu'il souhaite faire apparaître, le système génère le modèle correspondant, et cet objet devient immédiatement manipulable au sein de l'environnement virtuel. L'idée est de rendre la matérialisation et l'interaction spatiale beaucoup plus intuitives, sans passer par des interfaces lourdes. Depuis l'éditeur les éléments sont stockés dans le dossiers Assets/Models.
+This Unity project is a VR experiment that enables the generation of 3D models directly via voice prompts. In practice, the user speaks the name of the item they wish to spawn; the system generates the corresponding model, and the object becomes immediately manipulable within the virtual environment. The goal is to make materialization and spatial interaction far more intuitive, eliminating the need for cumbersome interfaces. Within the editor, the generated elements are stored in the `Assets/Models` folder.
 
-Concernant la mise en place de l'environnement de travail, la structure de ce dépôt repose sur l'utilisation de sous-modules Git. Cela implique qu'un téléchargement classique de l'archive ou un simple clonage de base ne rapatriera pas tout le code nécessaire à la bonne exécution du projet.
+Regarding the setup of the development environment, this repository's structure relies on Git submodules. This means that a standard archive download or a basic clone will not retrieve all the code required for the project to run correctly.
 
-Pour obtenir l'intégralité des fichiers dès le départ, il est nécessaire d'utiliser la ligne de commande pour cloner le projet en incluant directement ses dépendances. Placez-vous dans le dossier de destination de votre choix et exécutez la commande suivante :
+To obtain all the files right from the start, you need to use the command line to clone the project while including its dependencies. Navigate to your desired destination folder and run the following command:
 
 ```bash
 git clone --recursive https://github.com/Henristote/PrompObjectGenerationLayerPOGLayer.git
 ```
 
-Dans le cas où vous auriez déjà effectué un clonage standard par habitude, l'oubli est facilement rattrapable. Ouvrez votre terminal, naviguez jusqu'à la racine du projet que vous venez de récupérer, puis lancez l'instruction de mise à jour des sous-modules :
+If you have already performed a standard clone out of habit, the oversight is easily rectified. Open your terminal, navigate to the root of the project you just downloaded, and run the command to update the submodules:
 
 ```bash
 git submodule update --init --recursive
 ```
 
-Cette action se chargera d'inspecter l'arborescence, d'initialiser les liens manquants et de télécharger les composants requis.
+This action will inspect the directory structure, initialize missing links, and download the required components.
 
-Une fois que tous les fichiers sont bien présents sur votre machine, il ne vous reste plus qu'à ajouter le dossier via le Unity Hub et à ouvrir le projet. Vous pourrez alors tester la chaîne complète, de la captation de votre voix jusqu'à la manipulation physique de l'objet 3D généré dans votre scène.
+Once all the files are on your machine, simply add the folder via Unity Hub and open the project. You will then be able to test the entire pipeline, from voice capture to physically manipulating the generated 3D object within your scene.
