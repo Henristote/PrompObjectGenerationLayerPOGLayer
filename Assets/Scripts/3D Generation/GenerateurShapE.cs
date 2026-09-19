@@ -2,63 +2,66 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using System.IO;
-using Meta.XR.BuildingBlocks.AIBlocks;
 using System.Text.RegularExpressions;
 
 public class GenerateurShapE : MonoBehaviour
 {
-    // Le texte que tu souhaites envoyer à ton IA
-    public string descriptionObjet = "";
+    // The text you want to send to your AI
+    public string objectDescription = "";
 
-    // L'adresse de ton serveur Python local
+    // The address of your local Python server
 
-    private string urlApi = "http://" + "cio-squad-detector-craig" + ".trycloudflare.com/generer";
+    private string urlApi = "";
 
     public SpawnerObject3D spawner;
     public void StartGeneration(string promptText)
     {
-        Debug.Log("URL de l'API : " + urlApi);
-        descriptionObjet = promptText;
-        Debug.Log("Démarrage de la génération de l'objet 3D avec le prompt : " + descriptionObjet);
+        Debug.Log("URL of API : " + urlApi);
+        objectDescription = promptText;
+        Debug.Log("Starting 3D object generation with prompt: " + objectDescription);
         StartCoroutine(DemanderObjet3D());
+    }
+
+    public void SetApiUrl(string url)
+    {
+        urlApi = url;
+        Debug.Log("API URL updated: " + urlApi);
     }
 
     IEnumerator DemanderObjet3D()
     {
-        // 1. Formatage du texte en structure JSON
-        Debug.Log("1. Formatage du texte en structure JSON");
-        string contenuJson = "{\"prompt\": \"" + descriptionObjet + "\"}";
+        // 1. Formatting the text into JSON structure
+        Debug.Log("1. Formatting text into JSON structure");
+        string jsonContent = "{\"prompt\": \"" + objectDescription + "\"}";
 
-        // 2. Création de la requête POST
-        Debug.Log("2. Création de la requête POST");
-        using (UnityWebRequest www = UnityWebRequest.Post(urlApi, contenuJson, "application/json"))
+        // 2. Creating the POST request
+        Debug.Log("2. Creating POST request");
+        using (UnityWebRequest www = UnityWebRequest.Post(urlApi, jsonContent, "application/json"))
         {
-            // 3. Définition du chemin de sauvegarde (ici dans le dossier Assets/Models du projet)
-            // Assure-toi que le dossier "Models" existe déjà dans tes Assets
-            Debug.Log("3. Définition du chemin de sauvegarde");
-            string cheminSauvegarde = Path.Combine(Application.dataPath, "Models", (Regex.Replace(descriptionObjet, @"\s", "") + ".glb"));
+            // 3. Defining the save path (here in the Assets/Models folder of the project)
+            // Make sure the "Models" folder already exists in your Assets
+            Debug.Log("3. Defining the save path");
+            string savePath = Path.Combine(Application.dataPath, "Models", (Regex.Replace(objectDescription, @"\s", "") + ".glb"));
 
-            // 4. Configuration du DownloadHandler pour écrire directement sur le disque
-            Debug.Log("4. Configuration du DownloadHandler pour écrire directement sur le disque");
-            www.downloadHandler = new DownloadHandlerFile(cheminSauvegarde);
+            // 4. Configuration of DownloadHandler to write directly to disk
+            Debug.Log("4. Configuring the DownloadHandler to write directly to disk");
+            www.downloadHandler = new DownloadHandlerFile(savePath);
+            Debug.Log("Sending request to AI...");
 
-            Debug.Log("Transmission de la demande à l'IA en cours...");
-
-            // 5. Envoi et mise en attente sans bloquer le jeu
-            Debug.Log("5. Envoi et mise en attente sans bloquer le jeu");
+            // 5. Sending and waiting without blocking the game
+            Debug.Log("5. Sending and waiting without blocking the game");
             yield return www.SendWebRequest();
 
-            // 6. Vérification du résultat & spawn
-            Debug.Log("6. Vérification du résultat");
+            // 6. Checking the result & spawn
+            Debug.Log("6. Checking the result");
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError("Échec de la génération : " + www.error);
+                Debug.LogError("Generation failed: " + www.error);
             }
             else
             {
-                Debug.Log("Succès ! L'objet 3D a été sauvegardé ici : " + cheminSauvegarde);
-
-                spawner.SpawnObject(cheminSauvegarde);
+                Debug.Log("Success! The 3D object has been saved here: " + savePath);
+                spawner.SpawnObject(savePath);
             }
         }
     }

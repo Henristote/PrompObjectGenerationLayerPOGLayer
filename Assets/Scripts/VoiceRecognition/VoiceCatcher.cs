@@ -1,27 +1,24 @@
 using UnityEngine;
-using TMPro; // Nécessaire pour manipuler le texte
-using Meta.WitAi.Dictation; // Namespace pour DictationExperience
+using TMPro; 
+using Meta.WitAi.Dictation; 
 using System.IO;
 using System.Collections;
 
 
 #if UNITY_ANDROID
-using UnityEngine.Android; // Nécessaire pour forcer la demande de permission
+using UnityEngine.Android; 
 #endif
 
 
 public class VoiceCatcher : MonoBehaviour
 {
     [SerializeField] private DictationService dictationExperience;
-    [SerializeField] private TextMeshProUGUI uiTextDisplay; // Glissez votre texte ici
+    [SerializeField] private TextMeshProUGUI uiTextDisplay; 
 
     private string logPath;
     private Coroutine clearTextCoroutine;
 
-    //[SerializeField] private GenerateModel generateModel;
     [SerializeField] private GenerateurShapE generateModel;
-    //[SerializeField] private string LAYER_TOKEN = "pat_4pi2K0SNowsfHOX7YpzwPloRQkeBON7v5xRBXDm4se2p226Alc1DZ5jdPErAPHFRSzaWXvs6ZlrTz67MuoJdGd";
-    //[SerializeField] private string WORKSPACE_ID = "9cbfe705-ef1b-4c1f-a42a-933363502f1a";
 
 
     void Start()
